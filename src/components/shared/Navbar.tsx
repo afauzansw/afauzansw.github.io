@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b transition-colors duration-200",
+        "sticky top-4 z-50 px-4 w-full border-b transition-colors duration-200",
         scrolled
           ? "border-border bg-background/80 backdrop-blur"
           : "border-transparent"
@@ -38,7 +38,13 @@ export default function Navbar() {
     >
       <nav
         aria-label="Main"
-        className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6"
+        className={cn(
+          "mx-auto flex h-14 max-w-3xl items-center justify-between rounded-full border px-5 transition-all duration-200",
+          scrolled
+            ? "border-foreground/10 bg-background/60 shadow-lg shadow-black/20 backdrop-blur-xl backdrop-saturate-150"
+            : "border-transparent"
+        )}
+
       >
         <a href="#hero" className="font-semibold tracking-tight">
           Ahmad Fauzan
