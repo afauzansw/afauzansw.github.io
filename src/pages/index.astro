@@ -1,12 +1,20 @@
 ---
 import "../styles/global.css";
+import { getCollection } from "astro:content"
 // Component Imports
-// import { Button } from "@/components/ui/button"
-import  Hero  from "@/components/sections/hero"
-import Main from "@/layouts/main.astro"
+import Hero from "@/components/sections/hero";
+import Main from "@/layouts/main.astro";
+import Projects, { type ProjectItem } from "@/components/sections/projects"
 
+const projects = (await getCollection("projects"))
+  .map((p: { id: string; data: any }) => ({ id: p.id, ...p.data }))
+  .sort((a: ProjectItem, b: ProjectItem) => Number(b.featured) - Number(a.featured) || b.year - a.year)
 ---
 
-<Main>
-  <Hero/>
+<Main
+  title="Ahmad Fauzan - Fullstack Developer"
+  description="Fullstack developer building reliable web apps with Laravel, Go, and React. Explore my projects and get in touch."
+>
+  <Hero />
+	<Projects items={projects} client:visible />
 </Main>
