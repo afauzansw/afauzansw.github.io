@@ -1,6 +1,6 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { buttonVariants } from "@/components/ui/button"
-import Reveal from "@/components/shared/Revealdd"
+import Reveal from "@/components/shared/Reveal"
 
 export type ProjectItem = {
   id: string
