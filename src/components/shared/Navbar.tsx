@@ -10,10 +10,11 @@ import {
 } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
+// Hapus item yang section-nya belum dibuat
 const links = [
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#skills", label: "Skills" },
+  { href: "/#projects", label: "Projects" },
+  // { href: "/#experience", label: "Experience" },
+  // { href: "/#skills", label: "Skills" },
 ]
 
 export default function Navbar() {
@@ -28,25 +29,17 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header
-      className={cn(
-        "sticky top-4 z-50 px-4 w-full border-b transition-colors duration-200",
-        scrolled
-          ? "border-border bg-background/80 backdrop-blur"
-          : "border-transparent"
-      )}
-    >
+    <header className="sticky top-4 z-50 px-4">
       <nav
         aria-label="Main"
         className={cn(
-          "mx-auto flex h-14 max-w-3xl items-center justify-between rounded-full border px-5 transition-all duration-200",
+          "mx-auto flex h-14 max-w-3xl items-center justify-between rounded-full border pl-5 pr-2 transition-all duration-200",
           scrolled
             ? "border-foreground/10 bg-background/60 shadow-lg shadow-black/20 backdrop-blur-xl backdrop-saturate-150"
             : "border-transparent"
         )}
-
       >
-        <a href="#hero" className="font-semibold tracking-tight">
+        <a href="/" className="font-semibold tracking-tight">
           Ahmad Fauzan
         </a>
 
@@ -63,7 +56,7 @@ export default function Navbar() {
             </li>
           ))}
           <li>
-            <a href="#contact" className={buttonVariants({ size: "sm" })}>
+            <a href="/#contact" className={buttonVariants({ size: "sm" })}>
               Contact
             </a>
           </li>
@@ -75,7 +68,7 @@ export default function Navbar() {
             aria-label="Open menu"
             className={cn(
               buttonVariants({ variant: "outline", size: "icon" }),
-              "md:hidden"
+              "rounded-full md:hidden"
             )}
           >
             <svg
@@ -91,6 +84,7 @@ export default function Navbar() {
               <path d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </SheetTrigger>
+
           <SheetContent side="right" className="w-72">
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
@@ -98,13 +92,14 @@ export default function Navbar() {
                 Navigate to a section of the page
               </SheetDescription>
             </SheetHeader>
+
             <ul className="flex flex-col gap-1 px-4">
-              {[...links, { href: "#contact", label: "Contact" }].map((l) => (
+              {[...links, { href: "/#contact", label: "Contact" }].map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-md px-3 py-3 text-lg transition-colors duration-200 hover:bg-accent"
+                    className="block rounded-xl px-3 py-3 text-lg transition-colors duration-200 hover:bg-accent"
                   >
                     {l.label}
                   </a>
