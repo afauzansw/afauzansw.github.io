@@ -16,7 +16,7 @@ export default function Hero() {
           className="rise block text-base font-medium text-muted-foreground md:text-lg"
           style={step(0)}
         >
-          Hi, I’m Ahmad Fauzan, a <span className="text-primary">Fullstack Developer</span>
+          Hi, I’m Ahmad Fauzan, a <span className="text-primary">Software Engineer</span>
         </span>
         <span
           className="rise mt-4 block text-balance text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl"
