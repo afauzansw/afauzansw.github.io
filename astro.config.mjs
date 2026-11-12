@@ -9,6 +9,7 @@ export default defineConfig({
 	site: "https://afauzansw.github.io",
 	integrations: [react()],
 	vite: {
+		optimizeDeps: { include: ["motion/react"] },
 		plugins: [tailwindcss()],
 	},
 });
