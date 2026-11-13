@@ -32,7 +32,7 @@ export default function Navbar() {
       <nav
         aria-label="Main"
         className={cn(
-          "mx-auto flex h-14 max-w-3xl items-center justify-between rounded-full border pl-5 pr-2 transition-all duration-200",
+          "mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full border pl-5 pr-2 transition-all duration-200",
           scrolled
             ? "border-foreground/10 bg-background/60 shadow-lg shadow-black/20 backdrop-blur-xl backdrop-saturate-150"
             : "border-transparent"
