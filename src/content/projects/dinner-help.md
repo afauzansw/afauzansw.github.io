@@ -1,6 +1,6 @@
 ---
 title: "Dinner Help"
-summary: "One-line summary: the problem it solved and the outcome."
+summary: "A service marketplace connecting customers with personal cooking helpers."
 stack: ["Go", "React"]
 year: 2026
 featured: true

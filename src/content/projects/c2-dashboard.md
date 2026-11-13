@@ -1,7 +1,7 @@
 ---
 title: "komand.id"
-summary: "One-line summary: the problem it solved and the outcome."
-stack: ["React", "Python"]
+summary: "A real-time command and surveillance platform for police operations (Polri)."
+stack: ["React", "Tailwindcss", "Python"]
 year: 2026
 featured: true
 cover: "../../assets/projects/project-title.jpg"

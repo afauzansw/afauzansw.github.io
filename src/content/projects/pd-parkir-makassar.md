@@ -1,6 +1,6 @@
 ---
 title: "Perumda Parkir Makassar Raya"
-summary: "One-line summary: the problem it solved and the outcome."
+summary: "An enterprise management system covering HR, operations, and finance."
 stack: ["Laravel", "Metronic"]
 year: 2023
 featured: true

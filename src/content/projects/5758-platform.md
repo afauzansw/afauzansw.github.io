@@ -1,6 +1,6 @@
 ---
-title: "5758 KOL Platform and Timesheet"
-summary: "One-line summary: the problem it solved and the outcome."
+title: "KOL Platform and Timesheet"
+summary: "An integrated platform for KOL campaign management and employee time tracking."
 stack: ["Laravel", "Inertia.js", "React"]
 year: 2024
 featured: true

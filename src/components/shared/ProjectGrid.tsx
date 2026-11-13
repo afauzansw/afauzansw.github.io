@@ -43,12 +43,15 @@ function ProjectCard({ p }: { p: ProjectItem }) {
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex items-baseline justify-between gap-3">
-          <h3 className="text-lg font-semibold leading-snug tracking-tight">{p.title}</h3>
+          <div className="relative inline-block group">
+            <h3 className="text-lg font-semibold leading-snug tracking-tight">{p.title}</h3>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left"></span>
+          </div>
           <time dateTime={String(p.year)} className="text-sm text-muted-foreground">
             {p.year}
           </time>
         </div>
-        <p className="text-sm text-muted-foreground">{p.summary}</p>
+        <p className="text-xs text-muted-foreground">{p.summary}</p>
 
         {(p.link || p.repo) && (
           <div className="mt-auto flex gap-2 pt-2">

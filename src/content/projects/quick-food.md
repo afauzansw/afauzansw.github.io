@@ -3,7 +3,7 @@ title: "Quick Food"
 summary: "One-line summary: the problem it solved and the outcome."
 stack: ["Laravel", "React"]
 year: 2025
-featured: true
+featured: false
 cover: "../../assets/projects/project-title.jpg"
 coverAlt: "Screenshot of the project dashboard"
 ---
