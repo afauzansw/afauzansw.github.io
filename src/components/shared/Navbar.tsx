@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
 const links = [
   { href: "/#projects", label: "Projects" },
   // { href: "/#experience", label: "Experience" },
-  // { href: "/#skills", label: "Skills" },
+  // { href: "/#contacts", label: "Contacts" },
 ]
 
 export default function Navbar() {

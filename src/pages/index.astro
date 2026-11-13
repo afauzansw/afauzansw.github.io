@@ -3,8 +3,9 @@ import "../styles/global.css";
 
 // Component Imports
 import Main from "@/layouts/main.astro";
-import Projects from "@/components/sections/projects"
 import Hero from "@/components/sections/hero";
+import Projects from "@/components/sections/projects"
+import Contact from "@/components/sections/contact"
 import Footer from "@/components/sections/footer"
 import { getProjectItems } from "@/lib/projects"
 import DotField from "@/components/shared/DotField";
@@ -21,5 +22,6 @@ const projects = await getProjectItems(6)
     <Hero />
   </div>
 	<Projects items={projects} client:visible />
+  <Contact/>
   <Footer/>
 </Main>
