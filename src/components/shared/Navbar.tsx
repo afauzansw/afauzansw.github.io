@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
-// Hapus item yang section-nya belum dibuat
 const links = [
   { href: "/#projects", label: "Projects" },
   // { href: "/#experience", label: "Experience" },

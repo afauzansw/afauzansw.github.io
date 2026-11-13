@@ -6,6 +6,7 @@ import Hero from "@/components/sections/hero";
 import Main from "@/layouts/main.astro";
 import Projects from "@/components/sections/projects"
 import { getProjectItems } from "@/lib/projects"
+import DotField from "@/components/shared/DotField";
 
 const projects = await getProjectItems(6)
 ---
@@ -14,6 +15,9 @@ const projects = await getProjectItems(6)
   title="Ahmad Fauzan Setyo Wicaksono - Software Engineer"
   description="Software Engineer building reliable web apps with Laravel, Go, and React. Explore my projects and get in touch."
 >
-  <Hero />
+  <div class="relative isolate -mt-14 overflow-hidden pt-14">
+    <DotField client:load />
+    <Hero />
+  </div>
 	<Projects items={projects} client:visible />
 </Main>
