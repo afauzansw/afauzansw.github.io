@@ -13,10 +13,19 @@ export default function DotField() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
+    const root = rootRef.current
     const canvas = canvasRef.current
-    const host = rootRef.current?.parentElement
     const ctx = canvas?.getContext("2d")
-    if (!canvas || !host || !ctx) return
+    if (!root || !canvas || !ctx) return
+
+    // <astro-island> memakai display: contents (tanpa ukuran),
+    // jadi cari induk pertama yang punya kotak sungguhan
+    let found: HTMLElement | null = root.parentElement
+    while (found && getComputedStyle(found).display === "contents") {
+      found = found.parentElement
+    }
+    if (!found) return
+    const host: HTMLElement = found
 
     const color =
       getComputedStyle(document.documentElement).getPropertyValue("--primary").trim() || "#2E90FF"
@@ -58,9 +67,9 @@ export default function DotField() {
             const dy = y - cy
             const d = Math.hypot(dx, dy)
             if (d < INFLUENCE && d > 0.001) {
-              const f = (1 - d / INFLUENCE) ** 2 * strength // 0..1, landai di tepi
+              const f = (1 - d / INFLUENCE) ** 2 * strength
               const k = (f * PUSH) / d
-              x += dx * k // dorong menjauh dari kursor
+              x += dx * k
               y += dy * k
               rad = RADIUS * (1 - SHRINK * f)
             }
@@ -96,7 +105,7 @@ export default function DotField() {
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2)
-      const rect = host.getBoundingClientRect()
+      const rect = root.getBoundingClientRect()
       w = rect.width
       h = rect.height
       canvas.width = Math.round(w * dpr)
@@ -106,11 +115,11 @@ export default function DotField() {
 
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return
-      const rect = host.getBoundingClientRect()
+      const rect = root.getBoundingClientRect()
       tx = e.clientX - rect.left
       ty = e.clientY - rect.top
       if (target === 0) {
-        cx = tx // efek muncul di bawah kursor, bukan meluncur dari pojok
+        cx = tx
         cy = ty
       }
       target = 1
@@ -122,12 +131,12 @@ export default function DotField() {
     }
 
     const ro = new ResizeObserver(resize)
-    ro.observe(host)
+    ro.observe(root)
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting
       if (visible && target === 1) start()
     })
-    io.observe(host)
+    io.observe(root)
 
     if (interactive) {
       host.addEventListener("pointermove", onMove)
@@ -135,7 +144,7 @@ export default function DotField() {
     }
 
     resize()
-    setReady(true) // titik CSS dilepas, canvas yang tampil
+    setReady(true)
 
     return () => {
       cancelAnimationFrame(raf)
