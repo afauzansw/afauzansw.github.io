@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 
 const stack = ["Laravel", "Go", "React", "AI"]
 const step = (i: number) => ({ "--i": i }) as CSSProperties
@@ -42,8 +42,14 @@ export default function Hero() {
       </ul>
 
       <div className="rise mt-10 flex flex-wrap gap-3" style={step(4)}>
-        <a href="#projects" className={buttonVariants({ size: "lg" })}>View projects</a>
-        <a href="#contact" className={buttonVariants({ variant: "outline", size: "lg" })}>Contact me</a>
+        <a href="#projects">
+          <Button size="lg">View projects</Button>
+        </a>
+        <a href="#contact">
+          <Button variant="outline" size="lg">
+            Contact me
+          </Button>
+        </a>
       </div>
     </section>
   )

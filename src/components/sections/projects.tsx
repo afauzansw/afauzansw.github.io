@@ -1,5 +1,6 @@
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import ProjectGrid, { type ProjectItem } from "@/components/shared/ProjectGrid"
+import { ArrowRight } from "lucide-react"
 
 export default function Projects({ items }: { items: ProjectItem[] }) {
   return (
@@ -20,8 +21,10 @@ export default function Projects({ items }: { items: ProjectItem[] }) {
       </div>
 
       <div className="mt-10 flex justify-center">
-        <a href="/projects" className={buttonVariants({ variant: "outline", size: "lg" })}>
-          View all projects
+        <a href="/projects">
+          <Button variant="outline" size="lg">
+            View all projects <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
         </a>
       </div>
     </section>
