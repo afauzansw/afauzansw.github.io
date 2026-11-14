@@ -71,12 +71,12 @@ const contacts = [
 // Daftar menjadwalkan tile satu per satu; tiap tile menjalankan ikon lalu teks
 const list: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.18 } },
 }
 const tile: Variants = { hidden: {}, show: {} }
 const chip: Variants = {
   hidden: { opacity: 0, scale: 0.8 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.45, ease: "easeOut" } },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
 }
 const text: Variants = {
   hidden: { opacity: 0, x: -14, clipPath: "inset(0 100% 0 0)" },
@@ -84,7 +84,7 @@ const text: Variants = {
     opacity: 1,
     x: 0,
     clipPath: "inset(0 0% 0 0)",
-    transition: { duration: 0.6, ease: [0.2, 0.7, 0.2, 1], delay: 0.2 },
+    transition: { duration: 0.75, ease: [0.2, 0.7, 0.2, 1], delay: 0.25 },
   },
 }
 
@@ -108,7 +108,7 @@ export default function Contact() {
           variants={list}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.4 }}
         >
           {contacts.map((c) => {
             const external = c.href.startsWith("http")
