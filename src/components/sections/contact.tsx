@@ -1,39 +1,54 @@
+import { buttonVariants } from "@/components/ui/button"
 
+const contacts = [
+  { label: "Email", value: "affzn.dev@gmail.com", href: "mailto:affzn.dev@gmail.com" },
+  { label: "GitHub", value: "afauzansw", href: "https://github.com/afauzansw" },
+  { label: "LinkedIn", value: "afauzansw", href: "https://www.linkedin.com/in/afauzansw" },
+  { label: "Instagram", value: "affzn_", href: "https://www.instagram.com/affzn_" },
+]
 
 export default function Contact() {
   return (
     <section
-      id="contacts"
-      aria-labelledby="contacts-title"
-      className="mx-auto max-w-5xl px-6 py-24"
+      id="contact"
+      aria-labelledby="contact-title"
+      className="mx-auto max-w-5xl px-6 py-16 md:py-20"
     >
-      <h2 id="contacts-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">
-        Contacts
-      </h2>
-      <p className="mt-3 max-w-2xl text-muted-foreground">
-        A few things I’ve built, and the problems they solved.
-      </p>
-
-      <div className="mt-12 md:grid md:grid-cols-2 md:gap-6">
+      <div className="grid gap-10 md:grid-cols-2 md:gap-16">
         <div>
-          <h3 className="text-muted-foreground">Email</h3>
-          <p className="mt-1 text-lg font-semibold tracking-tight">affzn.dev@gmail.com</p>
+          <h2 id="contact-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Contact
+          </h2>
+          <p className="mt-3 max-w-md text-muted-foreground">
+            Have a project in mind, or just want to talk shop? Email is the fastest way to reach me.
+          </p>
+          <a
+            href="mailto:affzn.dev@gmail.com"
+            className={buttonVariants({ size: "lg", className: "mt-6" })}
+          >
+            Email me
+          </a>
         </div>
 
-        <div>
-          <h3 className="text-muted-foreground">Github</h3>
-          <p className="mt-1 text-lg font-semibold tracking-tight">afauzansw</p>
-        </div>
-
-        <div>
-          <h3 className="text-muted-foreground">LinkedIn</h3>
-          <p className="mt-1 text-lg font-semibold tracking-tight">afauzansw</p>
-        </div>
-
-        <div>
-          <h3 className="text-muted-foreground">Instagram</h3>
-          <p className="mt-1 text-lg font-semibold tracking-tight">affzn_</p>
-        </div>
+        <dl className="divide-y divide-border border-y border-border">
+          {contacts.map((c) => {
+            const external = c.href.startsWith("http")
+            return (
+              <div key={c.label} className="relative flex items-center justify-between gap-4 py-4">
+                <dt className="text-muted-foreground">{c.label}</dt>
+                <dd>
+                  <a
+                    href={c.href}
+                    {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                    className="text-lg font-semibold tracking-tight transition-colors duration-200 after:absolute after:inset-0 hover:text-primary"
+                  >
+                    {c.value}
+                  </a>
+                </dd>
+              </div>
+            )
+          })}
+        </dl>
       </div>
     </section>
   )

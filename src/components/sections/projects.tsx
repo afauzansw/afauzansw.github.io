@@ -7,7 +7,7 @@ export default function Projects({ items }: { items: ProjectItem[] }) {
     <section
       id="projects"
       aria-labelledby="projects-title"
-      className="mx-auto max-w-5xl px-6 py-24"
+      className="mx-auto max-w-5xl px-6 py-12"
     >
       <h2 id="projects-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">
         Projects
