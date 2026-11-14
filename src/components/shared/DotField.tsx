@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react"
 
 const SPACING = 32    // jarak antar titik (samakan dengan --s di CSS)
 const RADIUS = 1.2    // jari-jari titik
-const ALPHA = 0.45    // keterangan titik
-const INFLUENCE = 110 // jangkauan efek dari kursor
-const PUSH = 8        // pergeseran maksimum titik
+const ALPHA = 0.55    // keterangan titik
+const INFLUENCE = 150 // jangkauan efek kursor
+const PUSH = 8        // pergeseran maksimum titik oleh kursor
 const SHRINK = 0.6    // titik mengecil hingga 60% di pusat efek
+const DRIFT = 8       // kecepatan aliran (px/detik di tiap sumbu), diagonal sekitar 8,5 px/detik
+const DRIFT_ON_TOUCH = true // true = titik ikut mengalir di HP dan tablet
 
 export default function DotField() {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -32,6 +34,9 @@ export default function DotField() {
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches
     const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches
     const interactive = finePointer && !reduce
+    const drifting = !reduce && (finePointer || DRIFT_ON_TOUCH)
+
+    const half = SPACING / 2
 
     let w = 0
     let h = 0
@@ -39,7 +44,9 @@ export default function DotField() {
     let tx = 0, ty = 0 // posisi kursor sebenarnya
     let cx = 0, cy = 0 // posisi kursor yang sudah dihaluskan
     let target = 0     // 1 saat kursor di dalam hero, 0 saat keluar
-    let strength = 0   // kekuatan efek (naik dan turun halus)
+    let strength = 0   // kekuatan efek kursor (naik dan turun halus)
+    let phase = 0      // geseran pola akibat aliran (px), berulang tiap `half`
+    let last = 0       // waktu frame sebelumnya
     let raf = 0
     let visible = true
 
@@ -50,16 +57,15 @@ export default function DotField() {
       ctx.fillStyle = color
       ctx.beginPath()
 
-      const half = SPACING / 2
       const rows = Math.ceil(h / half) + 1
       const cols = Math.ceil(w / SPACING) + 1
 
-      for (let r = 0; r < rows; r++) {
-        const y0 = r * half
-        const offset = (r % 2) * half // baris ganjil bergeser setengah jarak
-        for (let c = 0; c < cols; c++) {
-          let x = c * SPACING + offset
-          let y = y0
+      // mulai dari -1 agar tidak ada celah di kiri dan atas saat pola bergeser
+      for (let r = -1; r <= rows; r++) {
+        const rowOffset = (r & 1) * half // baris ganjil bergeser setengah jarak
+        for (let c = -1; c <= cols; c++) {
+          let x = c * SPACING + rowOffset + phase
+          let y = r * half + phase
           let rad = RADIUS
 
           if (strength > 0.001) {
@@ -81,7 +87,12 @@ export default function DotField() {
       ctx.fill()
     }
 
-    const tick = () => {
+    const tick = (now: number) => {
+      // dt dibatasi agar tidak melompat setelah tab kembali aktif
+      const dt = last ? Math.min((now - last) / 1000, 0.05) : 0
+      last = now
+
+      if (drifting) phase = (phase + dt * DRIFT) % half
       cx += (tx - cx) * 0.18
       cy += (ty - cy) * 0.18
       strength += (target - strength) * 0.12
@@ -89,10 +100,11 @@ export default function DotField() {
 
       const moving = Math.hypot(tx - cx, ty - cy) > 0.3
       const fading = Math.abs(target - strength) > 0.002
-      if (visible && (moving || fading)) {
+      if (visible && (drifting || moving || fading)) {
         raf = requestAnimationFrame(tick)
       } else {
         raf = 0
+        last = 0
         if (target === 0) {
           strength = 0
           draw()
@@ -100,7 +112,10 @@ export default function DotField() {
       }
     }
     const start = () => {
-      if (!raf) raf = requestAnimationFrame(tick)
+      if (!raf) {
+        last = 0
+        raf = requestAnimationFrame(tick)
+      }
     }
 
     const resize = () => {
@@ -132,9 +147,11 @@ export default function DotField() {
 
     const ro = new ResizeObserver(resize)
     ro.observe(root)
+
+    // animasi hanya berjalan saat hero terlihat di layar
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting
-      if (visible && target === 1) start()
+      if (visible && (drifting || target === 1)) start()
     })
     io.observe(root)
 
@@ -145,6 +162,7 @@ export default function DotField() {
 
     resize()
     setReady(true)
+    if (drifting) start()
 
     return () => {
       cancelAnimationFrame(raf)
