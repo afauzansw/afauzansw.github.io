@@ -1,0 +1,18 @@
+[
+  {
+    "id": "company-a",
+    "company": "Company A",
+    "role": "Senior Laravel Developer",
+    "period": "2023 – Present",
+    "start": "2023-01",
+    "summary": "One or two sentences about the impact you made.",
+    "stack": ["Laravel", "Go", "React"]
+  },
+  {
+    "id": "company-c",
+    "company": "Company C",
+    "role": "Backend Developer",
+    "period": "2019 – 2021",
+    "start": "2019-01"
+  }
+]

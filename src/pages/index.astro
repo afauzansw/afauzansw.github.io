@@ -5,12 +5,15 @@ import "../styles/global.css";
 import Main from "@/layouts/main.astro";
 import Hero from "@/components/sections/hero";
 import Projects from "@/components/sections/projects"
+import Experience from "@/components/sections/experience"
 import Contact from "@/components/sections/contact"
 import Footer from "@/components/sections/footer"
 import { getProjectItems } from "@/lib/projects"
+import { getExperienceItems } from "@/lib/experiences"
 import DotField from "@/components/shared/DotField";
 
 const projects = await getProjectItems(6)
+const experiences = await getExperienceItems()
 ---
 
 <Main
@@ -22,6 +25,7 @@ const projects = await getProjectItems(6)
     <Hero />
   </div>
 	<Projects items={projects} client:visible />
+  <Experience items={experiences} client:visible/>
   <Contact client:visible/>
   <Footer/>
 </Main>
