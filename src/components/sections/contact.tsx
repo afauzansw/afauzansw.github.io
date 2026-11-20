@@ -88,6 +88,8 @@ const text: Variants = {
   },
 }
 
+// Notes to refactor: move motion cofig to shared compoent; move contacts data to /data;
+
 export default function Contact() {
   return (
     <section

@@ -4,7 +4,9 @@ import { cn } from "@/lib/utils"
 import type { ExperienceItem } from "@/data/experience"
 
 const VISIBLE = 4     // jumlah peran yang tampil sebelum "Show earlier roles"
-const READ_LINE = 0.5 // garis baca: 60% tinggi layar dari atas
+const READ_LINE = 0.5 // garis baca: 50% tinggi layar dari atas
+
+// Notes to refactor: move expandable to shared component; fix get data from /data/experience.ts
 
 export default function Experience({ items }: { items: ExperienceItem[] }) {
   const [showAll, setShowAll] = useState(false)
