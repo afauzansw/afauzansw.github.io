@@ -1,5 +1,6 @@
 import { buttonVariants } from "@/components/ui/button"
 import Reveal from "@/components/shared/Reveal"
+import { STAGGER } from "@/lib/motion"
 
 export type ProjectItem = {
   id: string
@@ -89,7 +90,7 @@ export default function ProjectGrid({ items }: { items: ProjectItem[] }) {
     <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((p, i) => (
         <li key={p.id}>
-          <Reveal delay={(i % 3) * 0.08} className="h-full">
+          <Reveal delay={(i % 3) * STAGGER} className="h-full">
             <ProjectCard p={p} />
           </Reveal>
         </li>

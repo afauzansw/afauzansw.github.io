@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import { motion, MotionConfig, type Variants } from "motion/react"
+import { DISTANCE, DURATION, EASE, STAGGER, VIEWPORT } from "@/lib/motion"
 
 function Icon({ children }: { children: ReactNode }) {
   return (
@@ -71,20 +72,20 @@ const contacts = [
 // Daftar menjadwalkan tile satu per satu; tiap tile menjalankan ikon lalu teks
 const list: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.18 } },
+  show: { transition: { staggerChildren: STAGGER } },
 }
 const tile: Variants = { hidden: {}, show: {} }
 const chip: Variants = {
   hidden: { opacity: 0, scale: 0.8 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  show: { opacity: 1, scale: 1, transition: { duration: DURATION.pop, ease: EASE } },
 }
 const text: Variants = {
-  hidden: { opacity: 0, x: -14, clipPath: "inset(0 100% 0 0)" },
+  hidden: { opacity: 0, x: -DISTANCE.side, clipPath: "inset(0 100% 0 0)" },
   show: {
     opacity: 1,
     x: 0,
     clipPath: "inset(0 0% 0 0)",
-    transition: { duration: 0.75, ease: [0.2, 0.7, 0.2, 1], delay: 0.25 },
+    transition: { duration: DURATION.reveal, ease: EASE, delay: DURATION.pop },
   },
 }
 
@@ -110,7 +111,7 @@ export default function Contact() {
           variants={list}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={VIEWPORT}
         >
           {contacts.map((c) => {
             const external = c.href.startsWith("http")

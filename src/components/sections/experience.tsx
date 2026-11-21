@@ -9,17 +9,18 @@ import {
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import type { ExperienceItem } from "@/data/experience"
+import { DURATION, EASE, VIEWPORT } from "@/lib/motion"
 
 const VISIBLE = 4 // jumlah peran yang tampil sebelum "Show earlier roles"
 
 // Durasi tiap tahap (detik). Urutan: titik -> teks -> garis -> baris berikutnya
-const T = { dot: 0.25, text: 0.55, line: 0.4 }
+const T = { dot: DURATION.pop, text: DURATION.reveal, line: 0.4 }
 
 const row: Variants = { hidden: {}, show: {} }
 
 const dotV: Variants = {
   hidden: { opacity: 0, scale: 0.5 },
-  show: { opacity: 1, scale: 1, transition: { duration: T.dot, ease: "easeOut" } },
+  show: { opacity: 1, scale: 1, transition: { duration: T.dot, ease: EASE } },
 }
 const textV: Variants = {
   hidden: { opacity: 0, x: -14, clipPath: "inset(0 100% 0 0)" },
@@ -27,21 +28,21 @@ const textV: Variants = {
     opacity: 1,
     x: 0,
     clipPath: "inset(0 0% 0 0)",
-    transition: { duration: T.text, ease: [0.2, 0.7, 0.2, 1], delay: T.dot },
+    transition: { duration: T.text, ease: EASE, delay: T.dot },
   },
 }
 const fadeV: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { duration: 0.4, ease: "easeOut", delay: T.dot + 0.15 },
+    transition: { duration: DURATION.pop, ease: EASE, delay: T.dot + 0.15 },
   },
 }
 const lineV: Variants = {
   hidden: { scaleY: 0 },
   show: {
     scaleY: 1,
-    transition: { duration: T.line, ease: "easeInOut", delay: T.dot + T.text },
+    transition: { duration: T.line, ease: EASE, delay: T.dot + T.text },
   },
 }
 
@@ -57,7 +58,7 @@ type RowProps = {
 
 function Row({ item, index, hasLine, allowed, open, onToggle, onDone }: RowProps) {
   const ref = useRef<HTMLLIElement>(null)
-  const inView = useInView(ref, { once: true, margin: "0px 0px -12% 0px" })
+  const inView = useInView(ref, VIEWPORT)
   const play = inView && allowed
   const expandable = Boolean(item.summary || item.stack?.length)
 
