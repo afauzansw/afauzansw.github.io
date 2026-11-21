@@ -8,11 +8,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import type { CSSProperties } from "react"
 import { cn } from "@/lib/utils"
 
 const links = [
   { href: "/#projects", label: "Projects" },
-  // { href: "/#experience", label: "Experience" },
+  { href: "/#experience", label: "Experience" },
   // { href: "/#contacts", label: "Contacts" },
 ]
 
@@ -92,19 +93,50 @@ export default function Navbar() {
               </SheetDescription>
             </SheetHeader>
 
-            <ul className="flex flex-col gap-1 px-4">
-              {[...links, { href: "/#contact", label: "Contact" }].map((l) => (
-                <li key={l.href}>
+            <ul className="mx-4 divide-y divide-border">
+              {links.map((l, i) => (
+                <li
+                  key={l.href}
+                  className="sheet-item"
+                  style={{ "--i": i } as CSSProperties}
+                >
                   <a
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-xl px-3 py-3 text-lg transition-colors duration-200 hover:bg-accent"
+                    className="group flex items-center justify-between py-4 text-lg font-medium transition-colors duration-200 hover:text-primary active:text-primary"
                   >
                     {l.label}
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      className="text-muted-foreground transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary group-active:translate-x-1"
+                    >
+                      <path d="m9 6 6 6-6 6" />
+                    </svg>
                   </a>
                 </li>
               ))}
             </ul>
+
+            <div
+              className="sheet-item mx-4 mt-6"
+              style={{ "--i": links.length } as CSSProperties}
+            >
+              <a
+                href="/#contact"
+                onClick={() => setOpen(false)}
+                className={buttonVariants({ size: "lg", className: "w-full" })}
+              >
+                Contact
+              </a>
+            </div>
           </SheetContent>
         </Sheet>
       </nav>
