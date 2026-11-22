@@ -29,7 +29,7 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header className="sticky top-4 z-50 px-4">
+    <header className="drop sticky top-4 z-50 px-4">
       <nav
         aria-label="Main"
         className={cn(

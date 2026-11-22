@@ -137,9 +137,25 @@
   }
 }
 
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .rise {
   animation: rise var(--reveal-duration) var(--reveal-ease) both;
   animation-delay: calc(var(--i, 0) * var(--reveal-stagger));
+}
+
+.drop {
+  animation: drop var(--reveal-duration) var(--reveal-ease) backwards;
+  animation-delay: 0.15s;
 }
 
 .sheet-item {
@@ -151,7 +167,12 @@
   .rise {
     animation: none;
   }
-  .sheet-item { animation: none; }
+  .sheet-item {
+    animation: none;
+  }
+  .drop {
+    animation: none;
+  }
 }
 
 .dots-mask {
