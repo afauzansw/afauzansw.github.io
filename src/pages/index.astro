@@ -8,6 +8,8 @@ import Projects from "@/components/sections/projects"
 import Experience from "@/components/sections/experience"
 import Contact from "@/components/sections/contact"
 import Footer from "@/components/sections/footer"
+import About from "@/components/sections/about"
+import { about } from "@/data/about"
 import { getProjectItems } from "@/lib/projects"
 import { getExperienceItems } from "@/lib/experiences"
 import DotField from "@/components/shared/DotField";
@@ -24,6 +26,7 @@ const experiences = await getExperienceItems()
     <DotField client:load />
     <Hero />
   </div>
+  <About {...about} client:visible />
 	<Projects items={projects} client:visible />
   <Experience items={experiences} client:visible/>
   <Contact client:visible/>
