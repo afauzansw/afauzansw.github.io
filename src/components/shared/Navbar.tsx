@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { buttonVariants } from "@/components/ui/button"
 import {
   Sheet,
@@ -18,26 +18,37 @@ const links = [
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
+    const el = navRef.current
+    if (!el) return
+    let raf = 0
+
+    const update = () => {
+      raf = 0
+      const p = Math.min(window.scrollY / 150, 1) // 0 sampai 1 selama 120px pertama
+      el.style.setProperty("--p", p.toFixed(3))
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+
+    update()
     window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener("scroll", onScroll)
+    }
   }, [])
 
   return (
     <header className="drop sticky top-4 z-50 px-4">
       <nav
+        ref={navRef}
         aria-label="Main"
-        className={cn(
-          "mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full border pl-5 pr-2 transition-all duration-200",
-          scrolled
-            ? "border-foreground/10 bg-background/60 shadow-lg shadow-black/20 backdrop-blur-xl backdrop-saturate-150"
-            : "border-transparent"
-        )}
+        className="nav-glass mx-auto flex h-14 max-w-3xl items-center justify-between rounded-full border pl-5 pr-2"
       >
         <a href="/" className="font-semibold tracking-tight">
           Ahmad Fauzan

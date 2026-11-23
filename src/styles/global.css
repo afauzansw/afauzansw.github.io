@@ -192,6 +192,16 @@
   animation: dots-in 1.2s ease-out both;
 }
 
+.nav-glass {
+  --p: 0; /* 0 = di atas halaman, 1 = glass penuh */
+  background-color: color-mix(in srgb, var(--background) calc(var(--p) * 60%), transparent);
+  border-color: color-mix(in srgb, var(--foreground) calc(var(--p) * 10%), transparent);
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / calc(var(--p) * 0.35));
+  -webkit-backdrop-filter: blur(calc(var(--p) * 20px)) saturate(calc(1 + var(--p) * 0.5));
+  backdrop-filter: blur(calc(var(--p) * 20px)) saturate(calc(1 + var(--p) * 0.5));
+  max-width: calc(48rem - var(--p) * 6rem);
+}
+
 @keyframes dots-in {
   from {
     opacity: 0;
